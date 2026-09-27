@@ -40,3 +40,10 @@ test('journey remains hidden in established app mode', () => {
   const body = app.match(/function setStage\([^]*?\nasync function request/)?.[0] || '';
   assert.match(body, /monitoringActive\|\|name==="connect"/);
 });
+
+test('refresh restores only a provider-trusted matching wallet session', () => {
+  assert.match(app, /connect\(\{onlyIfTrusted:true\}\)/);
+  assert.match(app, /localStorage\.getItem\("kelvara_prod_wallet"\)/);
+  assert.match(app, /current!==savedAddress/);
+  assert.match(app, /await restoreTrustedWallet\(\)/);
+});
