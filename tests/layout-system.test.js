@@ -37,10 +37,11 @@ test('desktop header action remains in the trailing column',()=>{
 });
 
 test('connect diagram uses a cropped readable viewport',()=>{
-  assert.match(html,/authority-flow-background\.svg\?v=20260927-layout/);
+  assert.match(html,/<img class="authority-bg" id="authority-bg" src="\/assets\/authority-flow-background\.svg\?v=20260927-layout"/);
   assert.match(fs.readFileSync(path.join(__dirname,'..','assets','authority-flow-background.svg'),'utf8'),/viewBox="0 340 1600 430"/);
   assert.match(css,/\.diagram-viewport\{height:380px/);
   assert.match(css,/\.diagram-viewport \.authority-bg\{[^}]*height:100%[^}]*margin:0/);
+  assert.match(css,/#stage-connect\.active \.diagram-viewport \.authority-bg\{[^}]*z-index:0[^}]*opacity:1[^}]*mask-image:none/);
   assert.match(html,/class="mobile-control-path"/);
   assert.match(css,/\.diagram-viewport\{display:none/);
   assert.match(css,/\.connect-stage:after\{display:none\}/);
