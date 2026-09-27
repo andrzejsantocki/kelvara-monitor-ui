@@ -28,3 +28,12 @@ test('immediate evacuation stays separate from armed protection', () => {
   assert.doesNotMatch(html, />Prepare protection transaction</);
   assert.doesNotMatch(html, /IMMEDIATE WITHDRAWAL/);
 });
+
+test('revoke protection explicitly closes three nonce accounts and reclaims rent', () => {
+  assert.match(html, /id="revoke-protection"[^>]*>Revoke &amp; reclaim rent</);
+  assert.match(html, /id="revoke-review-modal"/);
+  assert.match(html, /Closes all three durable nonce accounts/);
+  assert.match(html, /Network transaction fees already paid are not refundable/);
+  assert.match(app, /reclaimLamports/);
+  assert.match(app, /reclaimedLamports/);
+});
