@@ -29,11 +29,21 @@ test('evacuation stays hidden until backend verifies three stored transactions',
   const position = section('stage-position');
   const monitor = section('stage-monitor');
   assert.match(position, /POSITION ACTIONS/);
-  assert.match(position, /id="prepare-evacuation" class="danger-button hidden">Evacuate now</);
+  assert.match(position, /id="prepare-evacuation" class="danger-button hidden">Evacuate now/);
   assert.doesNotMatch(monitor, /IMMEDIATE WITHDRAWAL|prepare-evacuation|Evacuate now/);
   const render = app.match(/function renderProtection\([^]*?\nasync function loadProtection/)?.[0] || '';
-  assert.match(render, /status\.armed&&status\.armedCount===3&&status\.variants\?\.length===3/);
+  assert.match(render, /status\.armed&&status\.armedCount===3&&status\.variants\?\.length===3&&\!status\.completedAt/);
   assert.match(render, /#prepare-evacuation/);
+});
+
+test('completed no-position cycle exposes old coverage cleanup', () => {
+  assert.match(html, /id="finish-coverage"[^>]*class="secondary hidden"/);
+  assert.match(app, /function syncNoPositionLifecycle/);
+  assert.match(app, /protectionStatus\?\.completedAt/);
+  assert.match(app, /Previous evacuation completed/);
+  assert.match(app, /\$\("#finish-coverage"\)\.onclick=\(\)=>toggleRevokeReview\(true\)/);
+  const revoke = app.match(/async function revokeProtection\([^]*?\nfunction activateMonitoring/)?.[0] || '';
+  assert.match(revoke, /await inspect\(\{advance:false\}\)/);
 });
 
 test('journey remains hidden in established app mode', () => {
