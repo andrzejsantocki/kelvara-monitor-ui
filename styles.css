@@ -53,3 +53,8 @@ body.modal-open{overflow:hidden}
 #stage-connect.active .connect-grid{order:1;flex:none}
 #stage-connect.active .authority-bg{position:relative;order:2;z-index:0;inset:auto;width:100vw;height:clamp(420px,42vw,620px);margin:96px calc(50% - 50vw) 0;object-fit:cover;transform:translate3d(var(--bg-x,0),var(--bg-y,0),0) scale(1.02)}
 @media(max-width:850px){#stage-connect.active .authority-bg{height:clamp(340px,70vw,520px);margin-top:40px}}
+
+/* Header and wallet mark compatibility */
+.top-actions{grid-column:3;justify-self:end}
+.wallet-options>button>img.wallet-logo{width:46px;height:46px;display:block;object-fit:contain;border-radius:12px;background:#f0f1ed}
+@media(max-width:820px){.top-actions{grid-column:2;justify-self:end}}
