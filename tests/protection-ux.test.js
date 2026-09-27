@@ -23,9 +23,8 @@ test('arming protection starts with an explicit review before any signature', ()
   assert.doesNotMatch(app, /\$\("#arm-protection"\)\.onclick=armProtection/);
 });
 
-test('immediate evacuation is clearly separate from armed protection', () => {
+test('immediate evacuation stays separate from armed protection', () => {
   assert.match(html, /id="prepare-evacuation"[^>]*>Evacuate now</);
-  assert.match(html, /IMMEDIATE WITHDRAWAL/);
-  assert.match(html, /This is separate from armed protection/);
   assert.doesNotMatch(html, />Prepare protection transaction</);
+  assert.doesNotMatch(html, /IMMEDIATE WITHDRAWAL/);
 });
