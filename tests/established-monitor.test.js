@@ -25,12 +25,15 @@ test('monitored position exposes live state and opens its monitor', () => {
   assert.match(app, /\$\("#open-position-monitor"\)\.onclick=\(\)=>setStage\("monitor"\)/);
 });
 
-test('manual evacuation belongs to Position actions, not Monitor', () => {
+test('evacuation stays hidden until backend verifies three stored transactions', () => {
   const position = section('stage-position');
   const monitor = section('stage-monitor');
   assert.match(position, /POSITION ACTIONS/);
-  assert.match(position, /id="prepare-evacuation"[^>]*>Evacuate now</);
+  assert.match(position, /id="prepare-evacuation" class="danger-button hidden">Evacuate now</);
   assert.doesNotMatch(monitor, /IMMEDIATE WITHDRAWAL|prepare-evacuation|Evacuate now/);
+  const render = app.match(/function renderProtection\([^]*?\nasync function loadProtection/)?.[0] || '';
+  assert.match(render, /status\.armed&&status\.armedCount===3&&status\.variants\?\.length===3/);
+  assert.match(render, /#prepare-evacuation/);
 });
 
 test('journey remains hidden in established app mode', () => {
