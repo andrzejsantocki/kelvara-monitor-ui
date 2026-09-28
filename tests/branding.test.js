@@ -9,11 +9,15 @@ test('Kelvara wordmark links to the public site', () => {
   assert.match(html, /<a class="wordmark" href="https:\/\/kelvara\.xyz\/?"/);
 });
 
-test('favicon and wordmark reference an existing Kelvara SVG', () => {
-  assert.match(html, /<link rel="icon" href="\/assets\/kelvara\.svg" type="image\/svg\+xml">/);
+test('browser wallets can resolve Kelvara identity icons from app origin', () => {
+  assert.match(html, /<link rel="icon" type="image\/png" href="\/icon\.png">/);
+  assert.match(html, /<link rel="apple-touch-icon" href="\/icon\.png">/);
+  assert.match(html, /<link rel="manifest" href="\/manifest\.webmanifest">/);
+  assert.match(html, /<meta property="og:image" content="https:\/\/app\.kelvara\.xyz\/icon\.png">/);
   assert.match(html, /<img class="mark" src="\/assets\/kelvara\.svg"/);
-  assert.equal(fs.existsSync(path.join(__dirname, '..', 'assets', 'kelvara.svg')), true);
-  assert.doesNotMatch(html, /kelvara-icon\.png/);
+  for (const relative of ['icon.png', 'favicon.ico', 'manifest.webmanifest', 'assets/kelvara.svg']) {
+    assert.equal(fs.existsSync(path.join(__dirname, '..', relative)), true);
+  }
 });
 
 test('wallet picker uses square local SVG wallet marks', () => {
