@@ -1,11 +1,141 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kelvara — Mainnet DeFi Protection</title><meta name="application-name" content="Kelvara"><meta property="og:image" content="https://app.kelvara.xyz/icon.png"><link rel="icon" href="/icon.png" type="image/png" sizes="400x400"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="apple-touch-icon" href="/icon.png"><link rel="manifest" href="/manifest.webmanifest"><link rel="stylesheet" href="/styles.css?v=20260927-connect-layout"></head><body>
-<header class="topbar"><a class="wordmark" href="#connect"><img class="mark" src="/icon.png?v=20260929" alt=""><span>Kelvara</span></a><div class="top-actions"><span id="health" class="network"><i></i> Connecting</span><div id="header-connect" class="wallet-control"><button id="wallet-chip" class="wallet-chip header-connect" aria-haspopup="menu" aria-expanded="false"><span id="wallet-avatar" class="avatar"></span><span id="chip-address">Connect wallet</span></button><div id="wallet-menu" class="wallet-menu hidden" role="menu"><div class="wallet-menu-state"><span id="wallet-state">Not connected</span><code id="wallet-full-address">No wallet selected</code></div><button id="wallet-connect-action" role="menuitem">Connect wallet</button><button id="wallet-clear-action" class="hidden" role="menuitem">Clear viewed address</button><button id="wallet-disconnect-action" class="danger hidden" role="menuitem">Disconnect wallet</button></div></div></div></header>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Kelvara | Solana Position Monitoring</title>
+  <meta name="description" content="Kelvara monitors the programs, authorities, liquidity, and on-chain evidence behind Solana positions—showing what changed, why it matters, and what you can do next.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://kelvara.xyz/">
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/landing.css?v=20260928">
+  <script src="/assets/posthog.js"></script>
+  <link rel="icon" href="/assets/kelvara-icon.png?v=2" type="image/png">
+  <link rel="shortcut icon" href="/assets/kelvara-icon.png?v=2" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/kelvara-icon.png?v=2">
+  <meta name="theme-color" content="#183c2b">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kelvara">
+  <meta property="og:title" content="Kelvara | Solana Position Monitoring">
+  <meta property="og:description" content="Know when the assumptions behind your Solana position change.">
+  <meta property="og:url" content="https://kelvara.xyz/">
+  <meta property="og:image" content="https://kelvara.xyz/og-image.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kelvara | Solana Position Monitoring">
+  <meta name="twitter:description" content="Know when the assumptions behind your Solana position change.">
+  <meta name="twitter:image" content="https://kelvara.xyz/og-image.svg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Kelvara","url":"https://kelvara.xyz/","description":"Solana position monitoring with inspectable on-chain evidence."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Kelvara","url":"https://kelvara.xyz/"}</script>
+</head>
+<body class="landing">
+  <header class="site-header wrap">
+    <a class="brand" href="/" aria-label="Kelvara home"><img class="mark" src="/assets/kelvara-icon.png" alt="" width="36" height="36">Kelvara</a>
+    <nav class="nav" aria-label="Main navigation"><a href="/demo/">Demo</a><a href="/docs/">Docs</a><a class="nav-launch" href="https://app.kelvara.xyz">Launch App <span aria-hidden="true">↗</span></a></nav>
+  </header>
 
-<main>
-<section id="stage-connect" class="stage connect-stage active"><object class="authority-bg" id="authority-bg" data="/assets/authority-flow-background.svg" type="image/svg+xml" aria-hidden="true" tabindex="-1"></object><div class="connect-grid"><div class="connect-copy"><div class="eyebrow">MAINNET DEFI PROTECTION</div><h1>See what controls your onchain positions.</h1><p class="lead">Kelvara traces positions across DeFi protocols, verifies their control paths on Solana, and watches for security-critical changes. Kamino is the first supported vault integration.</p><div class="trust-list"><article><span>01</span><div><b>View without connecting</b><p>A public address never detects or opens a browser wallet.</p></div></article><article><span>02</span><div><b>Protocol-independent control evidence</b><p>ProgramData and authority are decoded directly from Solana RPC.</p></div></article><article><span>03</span><div><b>No custody</b><p>Kelvara never asks for your private key or seed phrase.</p></div></article></div></div><div class="lookup-form"><label for="wallet">Public Solana address</label><input id="wallet" autocomplete="off" spellcheck="false" placeholder="Paste a Solana public address"><button id="inspect" class="primary">Inspect position</button><p class="view-note">Wallet signing happens in your extension. Kelvara never receives keys or seed phrases.</p><p id="message" class="message" role="status"></p></div></div></section>
-<section id="stage-position" class="stage"><div class="intro"><div><div class="eyebrow">PORTFOLIO</div><h1>Positions discovered for this wallet.</h1></div><p>Select a position to inspect its vault, program, and control authority.</p></div><div class="portfolio-shell"><aside id="position-list" class="position-index"><header><span>Positions</span><b>1 detected</b></header><button class="position-row selected"><span class="protocol-token"><img src="/assets/steakhouse-usdg.svg" alt="Steakhouse USDG"></span><span class="row-name"><b>Steakhouse USDG High Yield</b><small>Kamino Earn · Mainnet</small></span><span class="row-value"><b id="amount">—</b><small id="share-detail">—</small></span><span class="row-state"><i></i>Evidence current</span></button><div class="empty-row"><span>Additional supported protocol positions appear here.</span></div></aside><article id="position-card" class="selected-position"><header><div><span class="label">SELECTED POSITION</span><h2>Steakhouse USDG High Yield</h2></div><span class="protocol-pill"><img src="/assets/kamino.svg" alt="Kamino">Kamino Earn</span></header><div class="mini-chain"><button><span>Position</span><b>4hKm…J6rE</b></button><i></i><button><span>Vault</span><b>BoZD…3ut5</b></button><i></i><button><span>Program</span><b>Kvau…FLjd</b></button><i></i><button class="authority"><span>Authority</span><b>GzFg…kzkW</b></button></div><p class="chain-result"><strong>Control path resolved.</strong> Authority evidence comes independently from Solana RPC.</p><div class="position-metrics"><div><span>Vault shares</span><b id="shares">—</b></div><div><span>Evidence freshness</span><b>Just now</b></div><div><span>Wallet</span><b id="position-wallet">—</b></div></div><button id="review-authority" class="primary next-action">Preview monitoring</button></article></div><div id="no-position" class="no-position hidden"><div><strong id="pending-title">Waiting for Kamino indexing</strong><p id="pending-message">A fresh deposit can take time to reach Kamino’s wallet-position API. Retrying automatically every 10 seconds.</p><small id="pending-wallet"></small></div><button id="retry" class="secondary">Check position again</button></div></section>
-<section id="stage-authority" class="stage"><div class="intro"><div><div class="eyebrow">SAFEGUARDS</div><h1>Review what must remain stable.</h1></div><p>Open each safeguard to inspect the current address, expected baseline, next preannounced destination, and check time.</p></div><div class="safeguards"><article id="safeguard-authority" class="safeguard"><button class="safeguard-summary" aria-expanded="false"><span class="check-icon">✓</span><span><b>Upgrade authority</b><small>Who can change the monitored program code</small></span><span id="authority-badge" class="status-pill">—</span><span class="chevron">⌄</span></button><div id="authority-card" class="safeguard-detail"><dl><div><dt>Current address</dt><dd id="authority"></dd></div><div><dt>Expected baseline</dt><dd id="expected"></dd></div><div><dt>Next preannounced address</dt><dd>Default nonce · no replacement announced</dd></div><div><dt>Last checked</dt><dd id="authority-checked">Just now</dd></div></dl><p id="meaning"></p><span id="authority-status" class="hidden"></span></div></article><article class="safeguard"><button class="safeguard-summary" aria-expanded="false"><span class="check-icon">✓</span><span><b>Program deployment record</b><small>Confirms the expected executable and ProgramData account</small></span><span class="status-pill ok">MATCHED</span><span class="chevron">⌄</span></button><div class="safeguard-detail"><dl><div><dt>Program</dt><dd id="program"></dd></div><div><dt>ProgramData</dt><dd id="programdata"></dd></div><div><dt>Next preannounced address</dt><dd>Default nonce · no deployment announced</dd></div><div><dt>Last checked</dt><dd>Just now</dd></div></dl></div></article></div><div class="monitor-consent"><div><span class="label">CONTINUOUS VERIFICATION</span><h2>Keep this position under live watch?</h2><p>Kelvara will re-check this selected position’s active safeguards every 60 seconds while the app runs.</p></div><label class="consent-control"><input id="monitor-consent" type="checkbox"><span class="switch"></span><span>Enable live monitoring</span></label></div><div class="stage-action"><button id="activate" class="primary" disabled>Activate monitoring</button></div><button id="details-toggle" class="hidden">View technical evidence</button><div id="technical-evidence" class="hidden"></div></section>
-<section id="stage-monitor" class="stage"><div class="intro"><div><div class="eyebrow">MONITOR</div><h1>Live protection for this position.</h1></div><p>Kelvara refreshes the selected Steakhouse position and its control evidence every 60 seconds.</p></div><div class="monitor-overview"><div><span>Monitored position</span><strong>1</strong><small>Steakhouse USDG</small></div><div><span>Rules passing</span><strong>2 / 2</strong><small id="monitor-authority-status">Baseline matches</small></div><div><span>Next check</span><strong id="countdown">60 seconds</strong><small>Mainnet evidence</small></div></div><div class="monitor-layout"><section class="watch-list"><header><span>Selected position</span><b>Live</b></header><div class="watch-row"><img src="/assets/steakhouse-usdg.svg" alt="Steakhouse USDG"><span><b>Steakhouse USDG High Yield</b><small>Kamino Earn · checked <span id="observed">—</span></small></span><span class="watch-state"><i></i>Healthy</span></div></section><section class="portfolio-events"><header><h2>Position event stream</h2><span class="live-dot"><i></i>Monitoring live</span></header><article class="event"><time>Now</time><i></i><div><b>Authority verified</b><p id="monitor-authority">—</p></div><small>Solana RPC</small></article><article class="event"><time>Now</time><i></i><div><b>Position refreshed</b><p><span id="monitor-amount">—</span> observed.</p></div><small>Kamino API</small></article></section></div><section class="protection-card"><div><span class="label">ARMED PROTECTION</span><h2 id="protection-title">Fast evacuation is not armed</h2><p id="protection-detail">Create three user-controlled durable nonce accounts, then batch-sign three exact-share evacuation transactions.</p></div><div class="armed-count"><strong id="armed-count">0</strong><span>armed transactions</span></div><div class="protection-actions"><button id="arm-protection" class="primary">Arm protection</button><button id="fast-close" class="danger-button hidden">Fast close</button><button id="revoke-protection" class="secondary hidden">Revoke protection</button></div><p id="protection-message" class="message" role="status"></p></section><div class="monitor-actions"><button id="prepare-evacuation" class="danger-button">Prepare protection transaction</button></div></section>
-</main>
-<div id="evacuation-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="evacuation-title"><div class="modal-card"><div class="selector-head"><div><small>USER-CONFIRMED ACTION</small><strong id="evacuation-title">Evacuation review</strong></div><button id="evacuation-close" aria-label="Close">×</button></div><p class="evacuation-warning">This withdraws all detected Steakhouse USDG vault shares back to USDG in the connected wallet. Nothing happens until you sign.</p><dl class="review-list"><div><dt>Position</dt><dd>Steakhouse USDG High Yield</dd></div><div><dt>Shares to redeem</dt><dd id="evacuation-shares">—</dd></div><div><dt>Estimated output</dt><dd id="evacuation-output">—</dd></div><div><dt>Destination wallet</dt><dd id="evacuation-destination">—</dd></div><div><dt>Destination token account</dt><dd id="evacuation-token-account">Prepared after simulation</dd></div><div><dt>Slippage</dt><dd>Not applicable — vault redemption</dd></div><div><dt>Estimated network fee</dt><dd id="evacuation-fee">—</dd></div><div><dt>Priority fee cap</dt><dd><select id="priority-fee"><option value="0">None</option><option value="10000">Low cap · 10,000 µ-lamports/CU</option><option value="100000">Medium cap · 100,000 µ-lamports/CU</option><option value="1000000">High cap · 1,000,000 µ-lamports/CU</option></select></dd></div><div><dt>Simulation</dt><dd id="evacuation-simulation">Not run</dd></div></dl><p class="evacuation-note">Smart congestion mode uses durable nonce transactions. It never automatically resubmits a possibly landed withdrawal.</p><div class="evacuation-actions"><button id="simulate-evacuation" class="secondary">Simulate evacuation</button><button id="sign-evacuation" class="primary" disabled>Sign and evacuate</button></div><p id="evacuation-message" class="message" role="status"></p></div></div>
-<div id="wallet-selector" class="modal wallet-selector-modal hidden" role="dialog" aria-modal="true" aria-labelledby="wallet-selector-title"><div class="wallet-selector-card"><div class="selector-head"><div><small>CONNECT WALLET</small><strong id="wallet-selector-title">Choose how to continue</strong><p>Your wallet stays in control. Kelvara receives only your public address.</p></div><button id="wallet-selector-close" aria-label="Close">×</button></div><div class="wallet-options"><button data-wallet="phantom"><span class="wallet-logo"><img src="/assets/wallets/phantom.svg" alt=""></span><span><strong>Phantom</strong><small>Browser extension</small></span><b aria-hidden="true">›</b></button><button data-wallet="solflare"><span class="wallet-logo"><img src="/assets/wallets/solflare.svg" alt=""></span><span><strong>Solflare</strong><small>Browser extension</small></span><b aria-hidden="true">›</b></button><button data-wallet="backpack"><span class="wallet-logo"><img src="/assets/wallets/backpack.svg" alt=""></span><span><strong>Backpack</strong><small>Browser extension</small></span><b aria-hidden="true">›</b></button></div><div id="wallet-selector-status" class="wallet-progress idle" role="status" aria-live="polite"><span class="progress-mark"><i></i></span><span><strong id="wallet-progress-title">Select a wallet</strong><small id="wallet-selector-message">The extension will ask for connection approval.</small></span></div><p class="wallet-privacy">Kelvara never requests a seed phrase or private key.</p></div></div><div id="toast" class="toast"></div><script src="/vendor/solana-web3.min.js"></script><script type="module" src="/app.js"></script></body></html>
+  <main>
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="hero-eyebrow"><span></span>Solana position monitoring</p>
+        <h1 id="hero-title">Know when the assumptions behind your position change.</h1>
+        <p class="lead">Kelvara monitors the programs, authorities, liquidity, and on-chain evidence behind your Solana positions—showing what changed, why it matters, and what you can do next.</p>
+        <div class="actions"><a class="button" href="https://app.kelvara.xyz">Launch App <span aria-hidden="true">↗</span></a><a class="button secondary" href="/demo/">Explore demo</a></div>
+        <p class="trust-line"><span aria-hidden="true">✓</span><b>Read-only wallet inspection</b><i></i><b>No signing</b><i></i><b>No transaction</b></p>
+      </div>
+
+      <div class="product-frame" aria-label="Example Kelvara position monitoring interface">
+        <div class="product-topbar"><span class="product-brand"><img src="/assets/kelvara-icon.png" alt="">Kelvara</span><span class="network"><i></i>Mainnet</span></div>
+        <div class="product-context"><div><span>Wallet</span><strong>7xK4…91A</strong></div><span class="signal-count">7 signals</span></div>
+        <article class="position-card">
+          <div class="position-head"><div><span class="ui-label">Position</span><strong>Kamino Earn</strong><small>Steakhouse USDG High Yield</small></div><div class="position-value"><span>Estimated value</span><strong>$48,291.40</strong></div></div>
+          <div class="assurance"><span>Assurance</span><strong><i></i>Review</strong></div>
+          <div class="signal-list">
+            <div><span>Program</span><strong class="review"><i>!</i> Upgrade detected</strong></div>
+            <div><span>Authority</span><strong class="pass"><i>✓</i> No change</strong></div>
+            <div><span>Liquidity</span><strong class="pass"><i>✓</i> Within baseline</strong></div>
+            <div><span>Evidence</span><strong>4 sources <b aria-hidden="true">→</b></strong></div>
+          </div>
+          <div class="position-actions"><button type="button">Inspect evidence</button><button type="button" class="quiet-action">Simulate exit</button></div>
+        </article>
+        <p class="illustrative">Illustrative product state</p>
+      </div>
+    </section>
+
+    <section class="watch-section section" aria-labelledby="watch-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="kicker">What Kelvara watches</p><h2 id="watch-title">The position is only the surface.</h2><p>Kelvara follows the technical assumptions underneath it.</p></div>
+        <div class="watch-list">
+          <article><span class="watch-number">01</span><div><h3>Program changes</h3><p>Detect upgrades and executable-state changes that can alter protocol behavior.</p></div><div class="mini-visual code-change" aria-hidden="true"><span>PROGRAM</span><code>ONRE…4ak3</code><b><i></i> Upgrade observed</b></div></article>
+          <article><span class="watch-number">02</span><div><h3>Control changes</h3><p>Track privileged authorities and changes to who can control critical protocol components.</p></div><div class="mini-visual authority-change" aria-hidden="true"><span>UPGRADE AUTHORITY</span><code>9cD2…mK4q</code><b><i>✓</i> Matches baseline</b></div></article>
+          <article><span class="watch-number">03</span><div><h3>Liquidity changes</h3><p>Monitor unusual liquidity and TVL movement that may affect a position's assumptions.</p></div><div class="mini-visual chart" aria-hidden="true"><span>LIQUIDITY · 24H</span><svg viewBox="0 0 210 58" preserveAspectRatio="none"><path d="M1 43 C25 41, 27 27, 52 31 S84 42,105 26 S137 16,157 22 S190 33,209 9"/><line x1="0" y1="49" x2="210" y2="49"/></svg><b>Within baseline</b></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section section" aria-labelledby="story-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="kicker">From position to decision</p><h2 id="story-title">One evidence trail. Five clear steps.</h2></div>
+        <ol class="story-flow">
+          <li><span>01</span><div><h3>Discover</h3><p>Identify supported positions from a public wallet.</p></div></li>
+          <li><span>02</span><div><h3>Monitor</h3><p>Track the assumptions behind each position.</p></div></li>
+          <li><span>03</span><div><h3>Detect</h3><p>Surface a change without hiding uncertainty.</p></div></li>
+          <li><span>04</span><div><h3>Verify</h3><p>Inspect evidence, source, and observation time.</p></div></li>
+          <li><span>05</span><div><h3>Act</h3><p>Simulate a bounded exit before approval.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="evidence-section section" aria-labelledby="evidence-title">
+      <div class="wrap evidence-layout">
+        <div class="evidence-copy"><p class="kicker">Evidence before assertion</p><h2 id="evidence-title">Don't trust an alert.<br>Inspect the evidence.</h2><p>Every assessment should be traceable. Kelvara preserves the observation, source, time, and rule behind the status—including unknown states.</p><a class="text-link" href="/docs/">Read how evidence is verified <span aria-hidden="true">→</span></a></div>
+        <article class="evidence-panel">
+          <header><div><span class="ui-label">Program upgrade</span><h3>Upgrade authority changed</h3></div><span class="review-pill"><i></i>Review</span></header>
+          <dl>
+            <div><dt>Program</dt><dd><code>ONRE…4ak3</code></dd></div>
+            <div><dt>Observed</dt><dd>2 minutes ago</dd></div>
+            <div><dt>Previous authority</dt><dd><code>9cD2…mK4q</code></dd></div>
+            <div><dt>Current authority</dt><dd><code>6pA7…vN8x</code></dd></div>
+          </dl>
+          <div class="source-row"><span>Sources</span><ul><li><i>✓</i>Solana RPC</li><li><i>✓</i>Account state</li><li><i>✓</i>Indexer</li></ul></div>
+          <button type="button">Inspect complete evidence <span aria-hidden="true">→</span></button>
+          <p>Illustrative evidence state</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="response-section section" aria-labelledby="response-title">
+      <div class="wrap">
+        <div class="layer-intro"><p class="kicker">Two product layers</p><h2 id="response-title">Observe without signing.<br>Arm a response by choice.</h2><p>Start with public, read-only evidence. Position owners can then opt into a separate action layer for a narrowly constrained evacuation path.</p></div>
+        <div class="layer-grid">
+          <article class="layer-card information-layer">
+            <div class="layer-card-head"><span>01</span><b>Information layer</b><em>Read-only</em></div>
+            <h3>Understand what changed.</h3>
+            <p>Inspect positions, monitored assumptions, status, history, evidence sources, and unknowns using a public wallet address.</p>
+            <ul><li>No wallet connection required</li><li>No signature or transaction required</li><li>Pass, review, breach, and unknown states</li></ul>
+            <a href="https://app.kelvara.xyz">Launch App <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="layer-card action-layer">
+            <div class="layer-card-head"><span>02</span><b>Action layer</b><em>Requires owner approval</em></div>
+            <h3>Prepare the exit before an emergency.</h3>
+            <p>After inspection, the position owner can simulate and pre-sign complete, exact-share withdrawal transactions backed by user-controlled durable nonces.</p>
+            <div class="armed-flow" aria-label="Armed evacuation workflow"><span>Simulate</span><i>→</i><span>Review exact terms</span><i>→</i><span>Wallet signs</span><i>→</i><span>Store encrypted</span></div>
+            <ul><li>Restricted to the reviewed position, owner destination, instruction sequence, and fee cap</li><li>Unused variants can be revoked by advancing or reclaiming their nonce accounts</li><li>Mainnet fast close submission is currently initiated by the position owner</li></ul>
+            <a href="/docs/#armed-protection">How armed evacuation works <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+        <p class="layer-boundary"><strong>Clear boundary:</strong> read-only inspection never becomes signing implicitly. The action layer requires wallet authentication, exact transaction review, successful simulation, and explicit wallet signatures.</p>
+      </div>
+    </section>
+
+    <section class="final-cta section">
+      <div class="wrap final-cta-inner"><div><p class="kicker">Start with a public address</p><h2>See the assumptions behind your position.</h2></div><div><div class="actions"><a class="button light" href="https://app.kelvara.xyz">Launch App <span aria-hidden="true">↗</span></a><a class="button outline-light" href="/demo/">Explore demo</a></div><p>Read-only inspection · No signing · No transaction</p></div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer wrap">
+    <div class="footer-primary"><a class="brand" href="/" aria-label="Kelvara home"><img class="mark" src="/assets/kelvara-icon.png" alt="" width="32" height="32">Kelvara</a></div>
+    <div class="footer-meta"><a class="built-on" href="https://solana.com" target="_blank" rel="noopener noreferrer"><span>Built on</span><img src="/assets/solana-logo.svg" alt="Solana"></a><span>© <span data-current-year></span> Kelvara</span></div>
+  </footer>
+  <script>document.querySelectorAll('[data-current-year]').forEach((element) => { element.textContent = new Date().getFullYear(); });</script>
+</body>
+</html>
