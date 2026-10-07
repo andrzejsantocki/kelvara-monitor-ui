@@ -1,6 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
 import { fetch } from '../src/index.js';
+
+const wranglerConfig = fs.readFileSync(path.join(import.meta.dirname, '..', 'wrangler.toml'), 'utf8');
+
+test('config attaches only the www host through a classic zone route', () => {
+  assert.ok(wranglerConfig.includes('pattern = "www.kelvara.xyz/*"'));
+  assert.ok(wranglerConfig.includes('zone_name = "kelvara.xyz"'));
+  assert.doesNotMatch(wranglerConfig, /custom_domain\\s*=\\s*true/);
+  assert.doesNotMatch(wranglerConfig, /pattern = "(?:kelvara\\.xyz|app\\.kelvara\\.xyz|api\\.kelvara\\.xyz)/);
+});
 
 async function responseFor(url, method = 'GET', headers = {}) {
   return fetch(new Request(url, { method, headers }), {});

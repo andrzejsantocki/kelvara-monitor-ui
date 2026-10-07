@@ -3,5 +3,5 @@ main = "src/index.js"
 compatibility_date = "2026-10-07"
 
 [[routes]]
-pattern = "www.kelvara.xyz"
-custom_domain = true
+pattern = "www.kelvara.xyz/*"
+zone_name = "kelvara.xyz"
