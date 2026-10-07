@@ -25,9 +25,11 @@ for p in tree.rglob("*"):
     assert not p.name.startswith("test_"), f"forbidden test payload: {rel}"
 expected = [x for x in required if x not in {".nojekyll", "CNAME"}]
 for rel in expected:
-    a, b = tree / rel, source / rel
-    assert b.is_file(), f"source fixture missing: {rel}"
-    assert hashlib.sha256(a.read_bytes()).digest() == hashlib.sha256(b.read_bytes()).digest(), f"hash mismatch: {rel}"
+    a = tree / rel
+    source_rel = "index.deployed.html" if rel == "index.html" else rel
+    b = source / source_rel
+    assert b.is_file(), f"source fixture missing: {source_rel}"
+    assert hashlib.sha256(a.read_bytes()).digest() == hashlib.sha256(b.read_bytes()).digest(), f"hash mismatch: {rel} vs {source_rel}"
 app = (tree / "app.html").read_text()
 assert '<script type="module" src="/app.js"></script>' in app, "app.html missing app.js"
 js = (tree / "app.js").read_text()
