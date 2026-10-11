@@ -18,5 +18,9 @@ def test_new_landing_contract():
     assert ".strip{display:none}" in mobile
     assert ".final{padding:78px 0}" in mobile
     assert "#principles{padding-top" not in HTML
+    assert "@media(prefers-color-scheme:dark)" in HTML
+    assert "color-scheme:dark" in HTML
+    assert "body{background:linear-gradient(180deg,#0c110e" in HTML
+    assert ".product-stage{background:linear-gradient(145deg,#1a221c,#111713)" in HTML
     for asset in ("assets/kelvara-icon.png", "assets/solana-logo.svg", "og-image.svg"):
         assert (ROOT / asset).is_file(), asset
