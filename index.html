@@ -63,11 +63,6 @@ h1 span+span i{animation-delay:.1s}
 @keyframes wipe{from{clip-path:inset(0 100% 0 0)}}
 .lbl{position:absolute;right:calc(100% - var(--now) + 12px);top:12px;font:12px var(--mono);color:var(--mute);white-space:nowrap}
 .lbl b{font-weight:400;color:var(--violet)}
-.top{display:grid;grid-template-columns:1fr auto;align-items:end;gap:48px}
-.peek{width:340px;margin-bottom:6px;animation:fade 1.2s .7s both}
-.peek .h b{font-weight:400;color:var(--violet)}
-.peek .w{display:flex;justify-content:space-between;gap:12px;margin-top:12px;padding-top:12px;border-top:1px solid var(--hair)}
-.peek .w i{font-style:normal;color:var(--bone)}
 .hero .foot{display:flex;justify-content:space-between;gap:16px;padding:20px 0 34px}
 
 /* story: sticky stage, four beats */
@@ -108,7 +103,6 @@ h2{margin:0;font-weight:300;font-size:clamp(40px,5.4vw,80px);line-height:.98;let
 .rows em.hot{color:var(--alarm)}
 .s1 .tape,.s1 .rows{opacity:.45}
 .tx{padding:16px 18px;border:1px solid var(--hair);border-radius:14px;transition:border-color .5s}
-.peek.tx{border-color:var(--violet)}
 .tx .h{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px}
 .tx p{margin:10px 0 4px;font-size:16px}
 .tx code{display:inline-block;font:12.5px var(--mono);color:var(--mute)}
@@ -145,8 +139,6 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
   header nav a:not(.btn){display:none}
   footer .wrap{flex-direction:column;align-items:flex-start}
   .hero{padding-top:18vh}
-  .top{grid-template-columns:1fr;gap:0}
-  .peek{width:auto;margin:32px 0 0}
   .grid{display:block}
   .stage-col{display:contents}
   .stage{top:0;z-index:3;height:auto;gap:9px;padding:12px 0 10px;background:var(--night)}
@@ -177,11 +169,9 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
 
 <main>
 <section class="hero">
-  <div class="wrap top"><div>
+  <div class="wrap">
     <h1 aria-label="Kelvara is on watch."><span><i>Kelvara is</i></span><span><i>on watch.</i></span></h1>
     <p class="lead">Sign your exit once. Kelvara watches the accounts that control your position. If that control changes against your policy, it sends the exit for you.</p>
-  </div>
-  <div class="peek tx"><div class="h cap"><span>Your exit</span><b>signed · ready</b></div><p>Withdraw everything to your own wallet</p><code>3 fee variants · durable nonce</code><div class="w cap"><span>Watching</span><i>upgrade authority · multisig</i></div></div>
   </div>
   <div class="tape" id="live"><i class="now"></i><span class="lbl"><span class="wide">solana </span>mainnet<span id="sl" hidden> · slot <b id="slot"></b></span></span></div>
   <div class="wrap foot cap"><span>Pre-signed protection for onchain capital</span><a href="#story">What happens at 03:12 on a Sunday ↓</a></div>

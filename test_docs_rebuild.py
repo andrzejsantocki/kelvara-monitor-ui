@@ -25,6 +25,6 @@ def test_docs_contract():
     assert 'Devnet journey' not in home
     assert 'Devnet journey' in page('developers/test-environment')
     css=(DOCS/'docs.css').read_text();js=(DOCS/'docs.js').read_text()
-    for marker in ('@media(max-width:760px)','@media(prefers-color-scheme:dark)','@media(prefers-reduced-motion:reduce)','.cards','.product-map','.callout','.badge','.toc'): assert marker in css
+    for marker in ('@media(max-width:760px)','color-scheme:dark','Hanken Grotesk','@media(prefers-reduced-motion:reduce)','.cards','.product-map','.callout','.badge','.toc'): assert marker in css
     for marker in ('navigator.clipboard','aria-expanded'): assert marker in js
     assert (ROOT/'assets/kelvara-icon.png').is_file()
