@@ -13,5 +13,9 @@ def test_on_watch_landing_contract():
     assert HTML.count('href="https://app.kelvara.xyz/"') == 3
     assert 'href="/docs/"' in HTML and 'href="https://status.kelvara.xyz/"' in HTML
     assert 'src="/assets/solana-logo.svg"' in HTML
+    for link in ('href="https://x.com/kelvara_xyz"', 'href="https://www.linkedin.com/company/kelvara-defi-security"', 'href="/privacy/"'):
+        assert link in HTML, link
+    privacy = (ROOT / "privacy/index.html").read_text()
+    assert "contact@kelvara.xyz" in privacy and "seed phrase" in privacy and "fonts.googleapis" not in privacy
     for asset in ("assets/kelvara-icon.png", "assets/solana-logo.svg", "og-image.png", "assets/fonts/hanken-grotesk-latin-300-normal.woff2"):
         assert (ROOT / asset).is_file(), asset
