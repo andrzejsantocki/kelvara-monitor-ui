@@ -117,8 +117,19 @@ h2{margin:0;font-weight:300;font-size:clamp(40px,5.4vw,80px);line-height:.98;let
 .nb{white-space:nowrap}
 .note{margin-top:4px;font:11px var(--mono);color:var(--mute)}
 
+/* why */
+.why{background:var(--bone);color:#0b0c0e;padding:18vh 0 14vh}
+.pts{display:grid;grid-template-columns:repeat(3,1fr);margin:80px 0 0;border-top:1px solid rgba(11,12,14,.14)}
+.pts div{padding:28px 36px 0 0}
+.pts div+div{padding-left:36px;border-left:1px solid rgba(11,12,14,.14)}
+.pts b{font:400 12.5px var(--mono);color:#5d5f64}
+.pts h3{margin:18px 0 0;font-weight:400;font-size:clamp(22px,2.2vw,30px);line-height:1.12;letter-spacing:-.03em}
+.pts p{margin:16px 0 0;color:#5d5f64}
+
 /* day */
 .day{background:var(--bone);color:#0b0c0e;padding:18vh 0}
+.why+.day{padding-top:0}
+.why+.day .wrap{padding-top:14vh;border-top:1px solid rgba(11,12,14,.14)}
 .who{margin:80px 0 0}
 .who div{display:grid;grid-template-columns:280px 1fr;gap:24px;padding:28px 0;border-top:1px solid rgba(11,12,14,.14)}
 .who dt{padding-top:9px;color:#5d5f64}
@@ -157,6 +168,9 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
   .tx{padding:12px 14px}
   .chapter{min-height:72vh;justify-content:flex-start;padding-top:4vh}
   .who div{grid-template-columns:1fr;gap:6px}
+  .pts{grid-template-columns:1fr;margin-top:56px}
+  .pts div,.pts div+div{padding:24px 0 28px;border-left:0}
+  .pts div+div{border-top:1px solid rgba(11,12,14,.14)}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
@@ -194,6 +208,16 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
     <article class="chapter" data-step="3"><span class="cap">Someone with the keys</span><h2>At 3 a.m., a new admin takes the keys.</h2><p>Until now, changing the vault's code needed 3 of 5 people on the team to agree. Tonight that power moves to one wallet nobody announced, and one key can rewrite the vault. The timelock on this vault is 0: a change takes effect the moment it lands, so nobody gets a window to react. Kelvara sees the change once it is final on the blockchain and sends the alert. Your rules decide how long a problem must last before Kelvara steps in. Here it's 60 seconds.</p></article>
     <article class="chapter" data-step="4"><span class="cap">Kelvara, while you sleep</span><h2>Your exit left before anyone woke up.</h2><p>Kelvara sent the transaction you signed on Tuesday. Nobody had to approve anything at 3 a.m. When the new key pushes its upgrade at 03:20, your position is already empty. Your team wakes up to the evidence: the admin change, the exit and the block each one landed in.</p></article>
   </div>
+</div></section>
+
+<section class="why" id="why"><div class="wrap">
+  <h2>Most capital has no one on watch.</h2>
+  <div class="pts">
+    <div><b>01</b><h3>Security teams guard their own book.</h3><p>Funds and protocols with security teams protect the capital of the firms that employ them. Depositors, smaller funds and DAO treasuries count on someone else noticing first. When one protocol fails, everything built on top of it fails with it.</p></div>
+    <div><b>02</b><h3>Decided on Tuesday. Done at 3 a.m.</h3><p>An in-house team still needs its signers awake to approve a withdrawal. With Kelvara, your committee approves the exit in advance. When your rules say go, it runs without waiting for anyone.</p></div>
+    <div><b>03</b><h3>One watcher across every protocol.</h3><p>Kelvara follows the control behind every position it covers. A single admin change reaches every exposed position at once. A team watching only its own book can't see that far.</p></div>
+  </div>
+  <p class="fine">Kelvara works alongside your security team. They set the rules. Kelvara carries them out at any hour.</p>
 </div></section>
 
 <section class="day"><div class="wrap">
