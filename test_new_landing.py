@@ -1,26 +1,21 @@
 from pathlib import Path
 ROOT = Path(__file__).parent
 HTML = (ROOT / "index.html").read_text()
-def test_new_landing_contract():
+CAL = "https://calendly.com/andrzej-santocki/30min"
+
+def test_on_watch_landing_contract():
     assert (ROOT / "CNAME").read_text().strip() == "kelvara.xyz"
-    for text in ("Protect your DeFi positions", "Kelvara ExitRail", "prefers-reduced-motion:reduce"):
-        assert text in HTML
-    for removed in ("scenario-note", "Illustrative product scenario.", "availability", "App access is currently limited during scheduled maintenance."):
-        assert removed not in HTML
-    assert "Inspect your wallet" not in HTML
-    assert 'src="https://kelvara.xyz/assets/' not in HTML
+    for text in ("Kelvara is", "on watch.", "a new admin takes the keys", "Powered by", "prefers-reduced-motion:reduce", "color-scheme:dark", "timelock 0", "og-image.png"):
+        assert text in HTML, text
+    for removed in ("Devnet", "devnet", "Run the demo", 'href="#demo"', 'href="#contact"', "Proposal 41", "hello@kelvara", "fonts.googleapis", "og-image.svg", "feed offline"):
+        assert removed not in HTML, removed
+    assert HTML.count(f'href="{CAL}"') == 3
     assert HTML.count('href="https://app.kelvara.xyz/"') == 3
-    assert 'href="/docs/"' in HTML
-    assert "--section-space:104px" in HTML
-    assert "section{padding:var(--section-space) 0}" in HTML
-    assert ".final{padding:var(--section-space) 0}" in HTML
-    mobile = HTML.split("@media(max-width:720px)", 1)[1].split("@media(prefers-reduced-motion", 1)[0]
-    assert ".strip{display:none}" in mobile
-    assert ".final{padding:78px 0}" in mobile
-    assert "#principles{padding-top" not in HTML
-    assert "@media(prefers-color-scheme:dark)" in HTML
-    assert "color-scheme:dark" in HTML
-    assert "body{background:linear-gradient(180deg,#0c110e" in HTML
-    assert ".product-stage{background:linear-gradient(145deg,#1a221c,#111713)" in HTML
-    for asset in ("assets/kelvara-icon.png", "assets/solana-logo.svg", "og-image.svg"):
+    assert 'href="/docs/"' in HTML and 'href="https://status.kelvara.xyz/"' in HTML
+    assert 'src="/assets/solana-logo.svg"' in HTML
+    for link in ('href="https://x.com/kelvara_xyz"', 'href="https://www.linkedin.com/company/kelvara-defi-security"', 'href="/privacy/"'):
+        assert link in HTML, link
+    privacy = (ROOT / "privacy/index.html").read_text()
+    assert "contact@kelvara.xyz" in privacy and "seed phrase" in privacy and "fonts.googleapis" not in privacy
+    for asset in ("assets/kelvara-icon.png", "assets/solana-logo.svg", "og-image.png", "assets/fonts/hanken-grotesk-latin-300-normal.woff2"):
         assert (ROOT / asset).is_file(), asset
