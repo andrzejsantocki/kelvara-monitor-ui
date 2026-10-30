@@ -198,7 +198,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
     <div class="clock"><b id="ct">14:20</b><span class="cap" id="cd">Tuesday</span></div>
     <div class="pos"><span>USDC <span class="wide">lending </span>vault</span><b id="pos">2,400,000 USDC in the vault</b></div>
     <div class="tape"><i class="now"></i><i class="lock"></i><span class="ev prop">admin key changed 03:12</span><span class="ev exit"><span>exit landed 03:13</span></span><span class="ev upg"><span><span class="wide">new key </span>upgrades 03:20</span></span></div>
-    <ul class="rows"><li>Who can change the vault code<em>team multisig</em></li><li>Team sign-off needed<em>3 of 5 people</em></li><li>Delay before a change takes effect<em>timelock 0</em></li><li>Withdrawals and activity<em>normal</em></li></ul>
+    <ul class="rows"><li>Who can change the vault code<em>team multisig</em></li><li>Team sign-off<em>required</em></li><li>Delay before a change takes effect<em>timelock 0</em></li><li>Withdrawals and activity<em>normal</em></li></ul>
     <div class="tx"><div class="h cap"><span>Your exit</span><span id="st">signed</span></div><p>Withdraw everything to your own wallet</p><code id="meta">pre-approved by you · stays valid</code></div>
     <span class="sig">→ alert sent · 03:12:06</span>
     <span class="note">Illustrative sequence</span>
@@ -207,7 +207,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
   <div class="chapters">
     <article class="chapter" data-step="1"><span class="cap">You</span><h2>Sign the exit once.</h2><p>You sign it ahead of time: a full withdrawal to your own wallet, in three priority-fee variants. Durable nonces keep them valid until they're needed. Kelvara stores the signed bytes. It can send them, but it can't change a single one.</p></article>
     <article class="chapter" data-step="2"><span class="cap">Kelvara</span><h2>Then Kelvara keeps watch.</h2><p>It follows the accounts that can change your position: the program's upgrade authority, the Squads multisig behind it, its members, threshold and proposals, and unusual transaction activity. Every reading is stored with its slot and source. A reading that goes stale shows as unknown, never as safe.</p></article>
-    <article class="chapter" data-step="3"><span class="cap">Someone with the keys</span><h2>At 3 a.m., a new admin takes the keys.</h2><p>Until now, changing the vault's code needed 3 of 5 people on the team to agree. Tonight that power moves to one wallet nobody announced, and one key can rewrite the vault. The timelock on this vault is 0: a change takes effect the moment it lands, so nobody gets a window to react. Kelvara sees the change once it is final on the blockchain and sends the alert. Your rules decide how long a problem must last before Kelvara steps in. Here it's 60 seconds.</p></article>
+    <article class="chapter" data-step="3"><span class="cap">Someone with the keys</span><h2>At 3 a.m., a new admin takes the keys.</h2><p>Since launch, the vault's code could only change with the team multisig's approval. Tonight that power moves to one wallet nobody announced, and one key can rewrite the vault. The timelock on this vault is 0: a change takes effect the moment it lands, so nobody gets a window to react. Kelvara sees the change once it is final on the blockchain, alerts you and steps in as your rules say.</p></article>
     <article class="chapter" data-step="4"><span class="cap">Kelvara, while you sleep</span><h2>Your exit left before anyone woke up.</h2><p>Kelvara sent the transaction you signed on Tuesday. Nobody had to approve anything at 3 a.m. When the new key pushes its upgrade at 03:20, your position is already empty. Your team wakes up to the evidence: the admin change, the exit and the block each one landed in.</p></article>
   </div>
 </div></section>
@@ -251,12 +251,12 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
   const mobile = matchMedia('(max-width:860px)').matches; // ponytail: read once; listen for changes if the layout must switch live
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const SIG = 'pre-approved by you · stays valid', IN = '2,400,000 USDC in the vault';
-  const CALM = ['team multisig', '3 of 5 people', 'timelock 0', 'normal'], HOT = ['an unknown wallet', 'bypassed', 'timelock 0', 'normal'];
+  const CALM = ['team multisig', 'required', 'timelock 0', 'normal'], HOT = ['an unknown wallet', 'bypassed', 'timelock 0', 'normal'];
   // Tue 14:20 → Sun 03:12 is 391 920 s; at ~400 ms per slot that is ~979 800 slots.
   const S = {
     1: { ct: '14:20', cd: 'Tuesday', pos: IN, r: CALM, st: 'signed', meta: SIG },
     2: { ct: '979 800', cd: 'blocks since Tuesday', pos: IN, r: CALM, st: 'ready', meta: SIG },
-    3: { ct: '03:12:06', cd: 'Sunday', pos: IN, r: HOT, st: 'sending in 60 s', meta: SIG },
+    3: { ct: '03:12:06', cd: 'Sunday', pos: IN, r: HOT, st: 'sending', meta: SIG },
     4: { ct: '03:13:09', cd: 'Sunday', pos: '2,400,000 USDC in your wallet', r: HOT, st: 'sent automatically', meta: 'landed · you signed it Tuesday 14:20' },
   };
   let timer, cur;
