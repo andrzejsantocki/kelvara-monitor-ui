@@ -99,7 +99,6 @@ h2{margin:0;font-weight:300;font-size:clamp(40px,5.4vw,80px);line-height:.98;let
 .s2 .rows li::after{animation:scan 2.4s var(--ease) infinite}
 .s2 .rows li:nth-child(2)::after{animation-delay:.3s}
 .s2 .rows li:nth-child(3)::after{animation-delay:.6s}
-.s2 .rows li:nth-child(4)::after{animation-delay:.9s}
 @keyframes scan{0%{transform:scaleX(0);opacity:1}60%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
 .rows em{font:normal 12.5px var(--mono);color:var(--mute);transition:color .4s}
 .rows em.hot{color:var(--alarm)}
@@ -198,7 +197,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
     <div class="clock"><b id="ct">14:20</b><span class="cap" id="cd">Tuesday</span></div>
     <div class="pos"><span>USDC <span class="wide">lending </span>vault</span><b id="pos">2,400,000 USDC in the vault</b></div>
     <div class="tape"><i class="now"></i><i class="lock"></i><span class="ev prop">admin key changed 03:12</span><span class="ev exit"><span>exit landed 03:13</span></span><span class="ev upg"><span><span class="wide">new key </span>upgrades 03:20</span></span></div>
-    <ul class="rows"><li>Who can change the vault code<em>team multisig</em></li><li>Team sign-off<em>required</em></li><li>Delay before a change takes effect<em>timelock 0</em></li><li>Withdrawals and activity<em>normal</em></li></ul>
+    <ul class="rows"><li>Who can change the vault code<em>team multisig</em></li><li>Delay before a change takes effect<em>timelock 0</em></li><li>Withdrawals and activity<em>normal</em></li></ul>
     <div class="tx"><div class="h cap"><span>Your exit</span><span id="st">signed</span></div><p>Withdraw everything to your own wallet</p><code id="meta">pre-approved by you · stays valid</code></div>
     <span class="sig">→ alert sent · 03:12:06</span>
     <span class="note">Illustrative sequence</span>
@@ -251,7 +250,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
   const mobile = matchMedia('(max-width:860px)').matches; // ponytail: read once; listen for changes if the layout must switch live
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const SIG = 'pre-approved by you · stays valid', IN = '2,400,000 USDC in the vault';
-  const CALM = ['team multisig', 'required', 'timelock 0', 'normal'], HOT = ['an unknown wallet', 'bypassed', 'timelock 0', 'normal'];
+  const CALM = ['team multisig', 'timelock 0', 'normal'], HOT = ['an unknown wallet', 'timelock 0', 'normal'];
   // Tue 14:20 → Sun 03:12 is 391 920 s; at ~400 ms per slot that is ~979 800 slots.
   const S = {
     1: { ct: '14:20', cd: 'Tuesday', pos: IN, r: CALM, st: 'signed', meta: SIG },
